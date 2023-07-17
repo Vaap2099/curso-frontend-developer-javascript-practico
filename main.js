@@ -5,10 +5,13 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const shoppingCartIcon = document.querySelector('.navbar-shopping-cart');
 const shoppingCart = document.querySelector('#shopping-cart-container');
 const cardsContainer = document.querySelector('.cards-container');
+const productDetailContainer = document.querySelector('#product-detail');
+const productDetailCloseIcon = document.querySelector('.product-detail-close')
 
 menuEmail.addEventListener('click', toggleDesktopMenu);
 menuMobile.addEventListener ('click', toggleMobileMenu);
 shoppingCartIcon.addEventListener ('click', toggleShoppingCart);
+productDetailCloseIcon.addEventListener('click', closeProductDetailAside)
 
 function toggleDesktopMenu () {
     const isAsideClosed = shoppingCart.classList.contains('inactive');
@@ -21,6 +24,7 @@ function toggleDesktopMenu () {
 
 function toggleMobileMenu () {
     const isAsideClosed = shoppingCart.classList.contains('inactive');
+    closeProductDetailAside();
     if (!isAsideClosed) {
         shoppingCart.classList.add('inactive');
     }
@@ -29,7 +33,8 @@ function toggleMobileMenu () {
 
 function toggleShoppingCart () {
     const isMobileMenuClosed = mobileMenu.classList.contains('inactive');
-    const isDesktopMenuClosed = desktopMenu.classList.contains('inactive')
+    const isDesktopMenuClosed = desktopMenu.classList.contains('inactive');
+    const isProductDetailClosed = productDetailContainer.classList.contains('inactive');
    
     
     if (!isMobileMenuClosed) {
@@ -38,8 +43,21 @@ function toggleShoppingCart () {
     if (!isDesktopMenuClosed) {
         desktopMenu.classList.add('inactive');
     }
+    if (!isProductDetailClosed) {
+        productDetailContainer.classList.add('inactive');
+    }
     shoppingCart.classList.toggle('inactive');
 }
+
+function openProductDetailAside() {
+    shoppingCart.classList.add('inactive');
+    productDetailContainer.classList.remove('inactive');
+}
+
+function closeProductDetailAside () {
+    productDetailContainer.classList.add('inactive');
+}
+
  const productList = [];
  productList.push({
     name: "Bike",
@@ -77,6 +95,7 @@ function toggleShoppingCart () {
 
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
+        productImg.addEventListener('click', openProductDetailAside);
 
         const productInfoDiv = document.createElement('div');
         const productPrice = document.createElement('p');
